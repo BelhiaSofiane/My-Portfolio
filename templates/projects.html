@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Contact - My Website{% endblock %}
+{% block content %}
+    <h1>Projects</h1>
+    <ul>
+        <!-- {% for project in projects %}
+            <li>
+                <h2>{{ project.title }}</h2>
+                <p>{{ project.description }}</p>
+                <a href="{{ project.url }}">View Project</a>
+            </li>
+        {% endfor %} -->
+        <main class="px-4 py-10">
+  <h2 class="text-2xl font-bold mb-8">Projects</h2>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <!-- Project Card -->
+    <div class="bg-white dark:bg-card rounded-xl shadow-md p-4 transition hover:shadow-lg">
+      <div class="bg-gray-200 dark:bg-gray-700 h-48 rounded-lg mb-4 w-full animate-pulse"></div>
+      <h3 class="text-lg font-semibold mb-1">Responsive Web Design</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Created a responsive website using HTML, CSS, and JS. Focused on browser compatibility and fluid layouts.
+      </p>
+      <div class="flex space-x-2">
+        <a href="#" class="px-4 py-1 bg-black text-white rounded-full text-sm">Live Demo</a>
+        <a href="#" class="px-4 py-1 bg-black text-white rounded-full text-sm">Source Code</a>
+      </div>
+    </div>
+
+    <!-- Project Card -->
+    <div class="bg-white dark:bg-card rounded-xl shadow-md p-4 transition hover:shadow-lg">
+      <div class="bg-gray-200 dark:bg-gray-700 h-48 rounded-lg mb-4 w-full animate-pulse"></div>
+      <h3 class="text-lg font-semibold mb-1">Task Management App</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Built with React Native for managing daily tasks. Features offline support and smooth UX.
+      </p>
+      <div class="flex space-x-2">
+        <a href="#" class="px-4 py-1 bg-black text-white rounded-full text-sm">Live Demo</a>
+        <a href="#" class="px-4 py-1 bg-black text-white rounded-full text-sm">Source Code</a>
+      </div>
+    </div>
+
+    <!-- Project Card -->
+    <div class="bg-white dark:bg-card rounded-xl shadow-md p-4 transition hover:shadow-lg">
+      <div class="bg-gray-200 dark:bg-gray-700 h-48 rounded-lg mb-4 w-full animate-pulse"></div>
+      <h3 class="text-lg font-semibold mb-1">E-Commerce Platform</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        MERN stack-based e-commerce solution with payment integration and scalable backend.
+      </p>
+      <div class="flex space-x-2">
+        <a href="#" class="px-4 py-1 bg-black text-white rounded-full text-sm">Live Demo</a>
+        <a href="#" class="px-4 py-1 bg-black text-white rounded-full text-sm">Source Code</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+{% endblock %}
