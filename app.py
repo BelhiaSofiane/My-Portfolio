@@ -5,10 +5,24 @@ import os
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev")  # use a real secret in prod
 
+
+from flask import request, session
+
+@app.route('/set-theme', methods=['POST'])
+def set_theme():
+    data = request.get_json()
+    session['theme'] = data.get('theme', 'light')
+    return '', 204
+
+@app.context_processor
+def inject_theme():
+    return {'theme': session.get('theme', 'light')}
+
 # Basic Routes
 @app.route("/")
 def index():
-    return render_template("index.html")
+    theme = session.get('theme', 'light')
+    return render_template("index.html", theme=theme)
 
 @app.route("/projects")
 def projects():
@@ -18,13 +32,9 @@ def projects():
 def contact():
     return render_template("contact.html")
 
-@app.route("/blog")
-def blog():
-    return render_template("blog.html")
-
-@app.route("/blog/<slug>")
-def post(slug):
-    return render_template("post.html", slug=slug)
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 if __name__ == "__main__":

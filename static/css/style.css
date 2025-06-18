@@ -6,3 +6,21 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #F9FAFB;
+  --text: #111827;
+  --text-secondary: #6B7280;
+  --accent: #3B82F6;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --text: #F9FAFB;
+    --text-secondary: #9CA3AF;
+    --card: #1E1E1E;
+    --border: #2D2D2D;
+  }
+}
