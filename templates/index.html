@@ -10,8 +10,7 @@
   </p>
 
   <div class="flex flex-col md:flex-row items-center gap-8">
-    <img src="../static/images/me.png" alt="Profile Photo"
-         class="w-40 h-40 rounded-full object-cover shadow-md" />
+    <img src="../static/images/me.png" alt="Profile Photo" class="w-40 h-40 rounded-full object-cover shadow-md" />
 
     <ul class="text-left space-y-4">
       <li class="flex items-center gap-3">
@@ -34,5 +33,19 @@
       </li>
     </ul>
   </div>
+  <div class="px-4 py-16 max-w-5xl mx-auto text-center">
+    <h2 class="text-2xl font-bold mb-8 text-text dark:text-text">My Stack</h2>
+
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-sm text-text-secondary dark:text-text-secondary">
+      {% for tech in stack %}
+      <div class="h-24 w-24 flex flex-col items-center transition-transform duration-300 hover:scale-110">
+        {{ tech.svg | safe }}
+        <span class="hover:text-accent transition">{{ tech.name }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
 </section>
 {% endblock %}
