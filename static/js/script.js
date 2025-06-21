@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     responsive: {
       light: `<svg style="fill:black" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M120-120v-520h200v-200h520v720H120Zm520-80h120v-560H400v120h240v440Zm-240 0h160v-360H400v360Zm-200 0h120v-360H200v360Zm440-440v80-80Zm-320 80Zm240 0Zm80-80Z"/></svg>`,
       dark: `<svg style="fill:white" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M120-120v-520h200v-200h520v720H120Zm520-80h120v-560H400v120h240v440Zm-240 0h160v-360H400v360Zm-200 0h120v-360H200v360Zm440-440v80-80Zm-320 80Zm240 0Zm80-80Z"/></svg>`,
-    }
+    },
   };
 
   // Utility to set icon content
@@ -52,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Determine theme
   const saved = localStorage.getItem("theme");
-  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const systemPrefersDark = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches;
   const isDarkInit = saved === "dark" || (!saved && systemPrefersDark);
 
   // Apply initial theme
@@ -66,7 +68,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const isDark = html.classList.toggle("dark");
     const newMode = isDark ? "dark" : "light";
     localStorage.setItem("theme", newMode);
-    Object.entries(iconElements).forEach(([type, el]) => setIcon(newMode, el, type));
+    Object.entries(iconElements).forEach(([type, el]) =>
+      setIcon(newMode, el, type)
+    );
     syncThemeWithFlask(newMode);
   });
+});
+
+// This function handles the chat logic, responding to user queries
+function handleChat() {
+  const query = this.userInput.toLowerCase().trim();
+  this.messages.push({ text: this.userInput, from: "user" });
+
+  let response = "I'm not sure how to answer that.";
+  if (query.includes("name") || query.includes("who")) {
+    response = "I'm Sofiane Belhia, a web developer from Algeria.";
+  } else if (query.includes("skills") || query.includes("tech")) {
+    response =
+      "I work with HTML, CSS, JavaScript, React, Flask, SQLite, and Tailwind CSS.";
+  } else if (query.includes("projects")) {
+    response =
+      "You can find my portfolio, CS50x final project, and other frontend apps in the Projects section.";
+  } else if (query.includes("email") || query.includes("contact")) {
+    response =
+      "You can email me at belhiasofiane150@gmail.com or reach out via the contact page.";
+  } else if (query.includes("education") || query.includes("learn")) {
+    response =
+      "I completed CS50x from Harvard and the Scrimba Frontend Career Path.";
+  }
+
+  this.messages.push({ text: response, from: "bot" });
+  this.userInput = "";
+  setTimeout(() => {
+    const box = document.getElementById("chat-box");
+    box.scrollTop = box.scrollHeight;
+  }, 50);
+}
+
+document.addEventListener("alpine:init", () => {
+  Alpine.data("chat", () => ({
+    open: false,
+    userInput: "",
+    messages: [],
+    handleChat,
+  }));
 });

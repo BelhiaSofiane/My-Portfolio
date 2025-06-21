@@ -1,88 +1,226 @@
 <!DOCTYPE html>
-<html lang="en" id="html-tag" class="">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <script
-      src="https://unpkg.com/@material-ui/core/umd/material-ui.development.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>{% block title %}My Portfolio{% endblock %}</title>
+<html lang="en" id="html-tag">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-      };
-    </script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Custom JS -->
-    <script
-      defer
-      src="{{ url_for('static', filename='js/script.js') }}"
-    ></script>
-  </head>
-  <body
-    class="bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-250 flex flex-col min-h-screen"
-  >
-    <!-- Navbar -->
-    <nav
-      class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700"
-    >
-      <div class="mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center min-w-screen">
-          <!-- Logo -->
-          <div class="flex items-center gap-2 text-lg font-bold">
-            <span id="terminal-icon"> </span>
-            B.Sofiane Portfolio
-          </div>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <script src="https://unpkg.com/@material-ui/core/umd/material-ui.development.js" crossorigin="anonymous"></script>
 
-          <!-- Links -->
-          <div class="flex items-center gap-6 text-sm font-medium">
-            <a href="/" class="hover:text-blue-500">Home</a>
-            <a href="/projects" class="hover:text-blue-500">Projects</a>
-            <a href="/contact" class="hover:text-blue-500">Contact</a>
-            <a href="/about" class="hover:text-blue-500">About Me</a>
-          </div>
-          <!-- Theme Toggle -->
-          <button
-            id="theme-toggle"
-            class="p-2 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
+  <!-- Page Title -->
+  <title>{% block title %}My Portfolio{% endblock %}</title>
+
+  <!-- Alpine.js for interactivity -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+    };
+  </script>
+  <!-- Custom JS -->
+  <script defer src="{{ url_for('static', filename='js/chat.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+
+
+    document.addEventListener("alpine:init", () => {
+      Alpine.data("chat", () => ({
+        open: false, // Controls the visibility of the chatbox
+        userInput: "", // Holds the current input from the user
+        messages: [], // Array to store chat messages { text: "...", from: "user" | "bot" }
+
+        // This method will be called when the form is submitted (@submit.prevent="sendMessage")
+        sendMessage() {
+          const query = this.userInput.toLowerCase().trim();
+
+          if (!query) {
+            // Don't send empty messages
+            return;
+          }
+
+          // Add user's message to the chat history
+          this.messages.push({ text: this.userInput, from: "user" });
+
+          // Clear the input field immediately
+          this.userInput = "";
+
+          let response = "I'm not sure how to answer that."; // Default response
+
+          // Simple conditional logic for bot responses
+          if (query.includes("name") || query.includes("who")) {
+            response = "I'm Sofiane Belhia, a web developer from Algeria.";
+          } else if (query.includes("skills") || query.includes("tech")) {
+            response =
+              "I work with HTML, CSS, JavaScript, React, Flask, SQLite, and Tailwind CSS.";
+          } else if (query.includes("projects")) {
+            response =
+              "You can find my portfolio, CS50x final project, and other frontend apps in the Projects section.";
+          } else if (query.includes("email") || query.includes("contact")) {
+            response =
+              "You can email me at belhiasofiane150@gmail.com or reach out via the contact page.";
+          } else if (query.includes("education") || query.includes("learn")) {
+            response =
+              "I completed CS50x from Harvard and the Scrimba Frontend Career Path.";
+          } else if (query.includes("hello") || query.includes("hi")) {
+            response = "Hello there! How can I help you with Sofiane?";
+          } else if (query.includes("how are you")) {
+            response = "I am an AI, I don't have feelings, but thanks for asking!";
+          } else if (query.includes("sofiane")) {
+            // A general response if "sofiane" is mentioned but no specific query matched
+            response = "What would you like to know about Sofiane?";
+          }
+
+          // Add bot's response to the chat history
+          this.messages.push({ text: response, from: "bot" });
+
+          // Scroll to the bottom of the chatbox after messages are rendered
+          // $nextTick ensures the DOM has updated before scrolling
+          this.$nextTick(() => {
+            const chatBox = document.getElementById("chat-box");
+            if (chatBox) {
+              chatBox.scrollTop = chatBox.scrollHeight;
+            }
+          });
+        },
+      }));
+    });
+  </script>
+
+</head>
+
+<body
+  class="bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-250 flex flex-col min-h-screen">
+
+  <!-- Navbar -->
+  <nav x-data="{ open: false }" aria-label="Main navigation"
+    class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 text-lg font-bold">
+          <span id="terminal-icon">
+            <!-- your logo SVG goes here -->
+          </span>
+
+          <span class="hidden md:inline">B.Sofiane</span>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="/" class="hover:text-blue-500">Home</a>
+          <a href="/projects" class="hover:text-blue-500">Projects</a>
+          <a href="/contact" class="hover:text-blue-500">Contact</a>
+          <a href="/about" class="hover:text-blue-500">About Me</a>
+        </div>
+
+        <!-- Right Section: Theme Toggle + Hamburger -->
+        <div class="flex items-center gap-2">
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle" title="Toggle dark mode"
+            class="p-2 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700">
             <span id="theme-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#e3e3e3"
-              >
-                <path
-                  d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"
-                />
-              </svg>
+              <!-- your SVG icon -->
             </span>
           </button>
+
+          <!-- Mobile Hamburger Button -->
+          <div class="md:hidden">
+            <button @click="open = !open"
+              class="p-2 border rounded border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700"
+              aria-label="Toggle menu">
+              <svg x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg x-show="open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-    </nav>
-    <!-- Main Content -->
-    <main class="flex items-center justify-center flex-grow m-0 p-6">
-      {% block content %}{% endblock %}
-    </main>
-    <footer
-      class="h-16 pt-10 pb-10 sticky bottom-0 text-sm text-gray-500 dark:text-gray-400 text-center mt-8 mb-4 flex flex-col md:flex-row justify-between px-6"
-    >
-      <span>© 2025 Belhia Sofiane Portfolio</span>
-      <div class="space-x-4">
-        <a href="#" class="hover:underline">Privacy Policy</a>
-        <a href="#" class="hover:underline">Terms of Service</a>
+
+      <!-- Mobile Dropdown Menu -->
+      <div x-show="open" x-transition class="md:hidden mt-2 space-y-2 text-sm font-medium">
+        <a href="/" class="block px-4 py-2 hover:text-blue-500">Home</a>
+        <a href="/projects" class="block px-4 py-2 hover:text-blue-500">Projects</a>
+        <a href="/contact" class="block px-4 py-2 hover:text-blue-500">Contact</a>
+        <a href="/about" class="block px-4 py-2 hover:text-blue-500">About Me</a>
       </div>
-    </footer>
-  </body>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex items-center justify-center flex-grow m-0 p-6">
+    {% block content %}{% endblock %}
+  </main>
+  <div x-data="chat" x-cloak class="fixed bottom-4 right-4 z-50">
+
+    <button @click="open = !open"
+      class="mb-12 bg-gray-500 text-white p-3 dark:bg-white dark:text-gray-500 rounded-full shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 4v-4z">
+        </path>
+      </svg>
+    </button>
+
+    <div x-show="open" x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-90" @click.away="open = false"
+      class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-80 h-96 flex flex-col fixed bottom-20 right-4">
+      <div class="p-3 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
+        <h3 class="font-semibold text-lg text-gray-800 dark:text-gray-100">Sofiane Chatbot</h3>
+        <button @click="open = false"
+          class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="chat-box" class="flex-1 overflow-y-auto p-3 space-y-2 text-gray-800 dark:text-gray-100">
+        <template x-for="(message, index) in messages" :key="index">
+          <div :class="{
+                        'flex justify-end': message.from === 'user',
+                        'flex justify-start': message.from === 'bot',
+                    }">
+            <div :class="{
+                            'bg-blue-500 text-white rounded-lg px-3 py-2 max-w-[70%]':
+                                message.from === 'user',
+                            'bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-lg px-3 py-2 max-w-[70%]':
+                                message.from === 'bot',
+                        }" x-text="message.text"></div>
+          </div>
+        </template>
+      </div>
+
+      <form @submit.prevent="sendMessage" class="border-t border-gray-200 dark:border-gray-600 flex">
+        <input type="text" x-model="userInput" placeholder="Ask something..."
+          class="w-full px-3 py-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-100" />
+        <button type="submit" class="px-4 text-blue-500 font-semibold">
+          &rarr;
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer
+    class="h-16 pt-10 pb-10 sticky bottom-0 text-sm text-gray-500 dark:text-gray-400 text-center mt-8 mb-4 flex flex-col md:flex-row justify-between px-6">
+    <span>© 2025 Belhia Sofiane Portfolio</span>
+    <div class="space-x-4">
+      <a href="#" class="hover:underline">Privacy Policy</a>
+      <a href="#" class="hover:underline">Terms of Service</a>
+    </div>
+  </footer>
+
+
+</body>
+
 </html>
