@@ -16,17 +16,29 @@ This is my **CS50x Final Project** — a modern, responsive personal developer p
 
 .
 ├── static/ # CSS, JavaScript, images
+
 ├── templates/ # HTML templates (Jinja2)
+
 │ ├── base.html
+
 │ ├── index.html
+
 │ ├── about.html
+
 │ ├── blog.html
+
 │ └── ...
+
 ├── app.py # Main Flask application
+
 ├── helpers.py # Utility functions
+
 ├── models.py # SQLite DB models (if used)
+
 ├── requirements.txt # Python dependencies
+
 └── README.md
+
 
 
 ## 🛠️ Tech Stack
