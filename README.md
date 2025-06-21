@@ -14,7 +14,6 @@ This is my **CS50x Final Project** — a modern, responsive personal developer p
   
 ## 📂 Project Structure
 
-.
 ├── static/ # CSS, JavaScript, images
 
 ├── templates/ # HTML templates (Jinja2)
