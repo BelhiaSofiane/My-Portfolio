@@ -8,7 +8,8 @@ This is my **CS50x Final Project** — a modern, responsive personal developer p
 - 🎨 **Custom theming** with dark/light mode toggle.
 - 📱 **Fully responsive design** for mobile, tablet, and desktop.
 - 📝 **Blog section** to post and edit articles from an admin dashboard.
-- 💬 **AI-powered chatbot** that answers questions *about me*. /// underconstruction
+- 💬 **AI-powered chatbot** that answers questions *about me*.
+
 
   
 ## 📂 Project Structure
