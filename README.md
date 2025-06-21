@@ -1,21 +1,61 @@
-Sofiane's final project.
-Stack used : 
-| Area     | Tech                                                      |
-| -------- | --------------------------------------------------------- |
-| Frontend | HTML, CSS (or Tailwind), JS                               |
-| Backend  | Python (Flask)                                            |
-| DB       | SQLite (easy with CS50)                                   |
-| Hosting  | GitHub Pages (static) or Render/Heroku (Flask)            |
-| Bonus    | Flask-WTF, Flask-Mail (contact form), Flask-Login (admin) |
+# Sofiane's Developer Portfolio 💻
+
+This is my **CS50x Final Project** — a modern, responsive personal developer portfolio built with **Flask**, **HTML/CSS**, **JavaScript**, and **SQLite**. The site is designed to showcase my skills, projects, and blog posts, with a sleek dark/light theme toggle, animations, and an admin dashboard for managing content.
+
+## 🚀 Features
+
+- ⚙️ **Built with Flask & SQLite** for backend logic and database management.
+- 🎨 **Custom theming** with dark/light mode toggle.
+- 📱 **Fully responsive design** for mobile, tablet, and desktop.
+- 📝 **Blog section** to post and edit articles from an admin dashboard.
+- 💬 **AI-powered chatbot** that answers questions *about me*.
+- 🔐 **Admin authentication** to securely manage content. /// underconstruction 
+
+## 📂 Project Structure
+
+.
+├── static/ # CSS, JavaScript, images
+├── templates/ # HTML templates (Jinja2)
+│ ├── base.html
+│ ├── index.html
+│ ├── about.html
+│ ├── blog.html
+│ └── ...
+├── app.py # Main Flask application
+├── helpers.py # Utility functions
+├── models.py # SQLite DB models (if used)
+├── requirements.txt # Python dependencies
+└── README.md
 
 
-Color Palette (Hex Codes):
+## 🛠️ Tech Stack
 
-| Purpose          | Light Mode           | Dark Mode        |
-| ---------------- | -------------------- | ---------------- |
-| Background       | `#F9FAFB`            | `#121212`        |
-| Primary Text     | `#111827`            | `#F9FAFB`        |
-| Secondary Text   | `#6B7280`            | `#9CA3AF`        |
-| Accent / Primary | `#3B82F6`            | `#3B82F6`        |
-| Card/Panel BG    | `#FFFFFF`            | `#1E1E1E`        |
-| Border / Divider | `#E5E7EB`            | `#2D2D2D`        |
+- **Frontend**: HTML5, TailwindCSS, Vanilla JS
+- **Backend**: Python 3, Flask
+- **Database**: SQLite
+- **Others**: Jinja2, localStorage, Flask session
+
+## 🧠 AI Chatbot (About Me Assistant)
+
+An interactive chat widget that answers only questions about me, based on preprogrammed information. (This is a local client-side AI — no OpenAI API used yet.)
+
+## 🧪 Setup & Run Locally
+
+1. **Clone the repo:**
+
+   ```bash
+   git clone https://github.com/BelhiaSofianeCS50/Cs50FinalProject.git
+   cd Cs50FinalProject
+
+🧾 License
+This project is open-source and free to use under the MIT License.
+
+📬 Contact
+Name: Sofiane Belhia
+
+📧 belhiasofiane150@gmail.com
+
+🌐 LinkedIn
+
+💻 GitHub
+
