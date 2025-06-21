@@ -53,9 +53,9 @@ This project is open-source and free to use under the MIT License.
 📬 Contact
 Name: Sofiane Belhia
 
-📧 belhiasofiane150@gmail.com
+📧 email : belhiasofiane150@gmail.com
 
-🌐 LinkedIn
-
-💻 GitHub
+🌐 LinkedIn : https://www.linkedin.com/in/sofiane-belhia-1696b5285/
+ 
+💻 GitHub : https://github.com/BelhiaSofianeCS50/
 
