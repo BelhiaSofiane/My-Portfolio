@@ -48,7 +48,19 @@ def ask_ai():
 
     # Define Sofiane's context for the AI
     sofiane_context = """
-    Sofiane Belhia is a web developer from Algeria.
+    Sofiane Belhia is a web developer from Algeria, specializing in frontend development with a focus on modern web technologies, age 25 years old.
+    2023: Started my coding journey — learned HTML, CSS, and JavaScript, from scrimba 
+    2024: Finished Scrimba’s Frontend Career Path.
+    2025: Finished CS50x harvard into to computer sciense Building real-world projects with Flask, React, and Tailwind. Looking for my first developer role.
+    projects :
+        tenzies: 
+            live demo : https://smb-tenzies-game.netlify.app/
+            github : https://github.com/KunoSMB/tenziesgame
+        quizzical:
+            live demo : https://smb-quizzical.netlify.app/
+            github : https://github.com/KunoSMB/Quizzical-Revise
+    Github : https://github.com/BelhiaSofianeCS50/
+    Linkedin : https://www.linkedin.com/in/belhia-sofiane-150/
     Education: Completed Harvard's CS50x and Scrimba Frontend Career Path.
     Skills: HTML, CSS (Tailwind CSS), JavaScript (React), Python (Flask), SQLite.
     Projects: Creator of this Personal Finance Monitoring application (CS50x Final Project), has a portfolio with other frontend apps.
@@ -58,7 +70,7 @@ def ask_ai():
     """
 
     messages = [
-        {"role": "system", "content": "You are a helpful assistant providing information about Sofiane Belhia, based on the provided context."},
+        {"role": "system", "content": "Queries will not add to your knowledge ,If you are asked anything that is not about Sofiane Belhia, do NOT answer. You are a professional and helpful assistant, providing information about Sofiane Belhia. All information must be derived solely from the context provided within the user's current prompt. Ensure your responses are concise and directly address the user's query without unnecessary detail."},
         {"role": "user", "content": f"Here is context about Sofiane: {sofiane_context}\n\nUser's question: {user_query}"}
     ]
 
