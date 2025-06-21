@@ -23,69 +23,63 @@
     };
   </script>
   <!-- Custom JS -->
-  <script defer src="{{ url_for('static', filename='js/chat.js') }}"></script>
   <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
   <script>
-
+    // static/js/chat.js
 
     document.addEventListener("alpine:init", () => {
       Alpine.data("chat", () => ({
-        open: false, // Controls the visibility of the chatbox
-        userInput: "", // Holds the current input from the user
-        messages: [], // Array to store chat messages { text: "...", from: "user" | "bot" }
+        open: false,
+        userInput: "",
+        messages: [],
+        isLoading: false, // New state for loading indicator
 
-        // This method will be called when the form is submitted (@submit.prevent="sendMessage")
-        sendMessage() {
+        async sendMessage() { // Make this function async
           const query = this.userInput.toLowerCase().trim();
 
           if (!query) {
-            // Don't send empty messages
-            return;
+            return; // Don't send empty messages
           }
 
           // Add user's message to the chat history
           this.messages.push({ text: this.userInput, from: "user" });
+          const userQuery = this.userInput; // Store the query before clearing input
+          this.userInput = ""; // Clear the input field immediately
+          this.isLoading = true; // Show loading indicator
 
-          // Clear the input field immediately
-          this.userInput = "";
+          try {
+            // Make a fetch request to your Flask backend
+            const response = await fetch("/ask_ai", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ query: userQuery }),
+            });
 
-          let response = "I'm not sure how to answer that."; // Default response
-
-          // Simple conditional logic for bot responses
-          if (query.includes("name") || query.includes("who")) {
-            response = "I'm Sofiane Belhia, a web developer from Algeria.";
-          } else if (query.includes("skills") || query.includes("tech")) {
-            response =
-              "I work with HTML, CSS, JavaScript, React, Flask, SQLite, and Tailwind CSS.";
-          } else if (query.includes("projects")) {
-            response =
-              "You can find my portfolio, CS50x final project, and other frontend apps in the Projects section.";
-          } else if (query.includes("email") || query.includes("contact")) {
-            response =
-              "You can email me at belhiasofiane150@gmail.com or reach out via the contact page.";
-          } else if (query.includes("education") || query.includes("learn")) {
-            response =
-              "I completed CS50x from Harvard and the Scrimba Frontend Career Path.";
-          } else if (query.includes("hello") || query.includes("hi")) {
-            response = "Hello there! How can I help you with Sofiane?";
-          } else if (query.includes("how are you")) {
-            response = "I am an AI, I don't have feelings, but thanks for asking!";
-          } else if (query.includes("sofiane")) {
-            // A general response if "sofiane" is mentioned but no specific query matched
-            response = "What would you like to know about Sofiane?";
-          }
-
-          // Add bot's response to the chat history
-          this.messages.push({ text: response, from: "bot" });
-
-          // Scroll to the bottom of the chatbox after messages are rendered
-          // $nextTick ensures the DOM has updated before scrolling
-          this.$nextTick(() => {
-            const chatBox = document.getElementById("chat-box");
-            if (chatBox) {
-              chatBox.scrollTop = chatBox.scrollHeight;
+            if (!response.ok) {
+              // Handle HTTP errors (e.g., 500 from your Flask app)
+              throw new Error(`HTTP error! status: ${response.status}`);
             }
-          });
+
+            const data = await response.json();
+            let aiResponseText = data.response || "Sorry, I couldn't get a response from the AI.";
+
+            this.messages.push({ text: aiResponseText, from: "bot" });
+
+          } catch (error) {
+            console.error("Error fetching AI response:", error);
+            this.messages.push({ text: "Oops! Something went wrong getting an AI response. Please try again.", from: "bot" });
+          } finally {
+            this.isLoading = false; // Hide loading indicator
+            // Scroll to the bottom of the chatbox after messages are rendered
+            this.$nextTick(() => {
+              const chatBox = document.getElementById("chat-box");
+              if (chatBox) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+              }
+            });
+          }
         },
       }));
     });
@@ -174,6 +168,7 @@
       x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
       x-transition:leave-end="opacity-0 scale-90" @click.away="open = false"
       class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-80 h-96 flex flex-col fixed bottom-20 right-4">
+
       <div class="p-3 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
         <h3 class="font-semibold text-lg text-gray-800 dark:text-gray-100">Sofiane Chatbot</h3>
         <button @click="open = false"
@@ -187,9 +182,9 @@
       <div id="chat-box" class="flex-1 overflow-y-auto p-3 space-y-2 text-gray-800 dark:text-gray-100">
         <template x-for="(message, index) in messages" :key="index">
           <div :class="{
-                        'flex justify-end': message.from === 'user',
-                        'flex justify-start': message.from === 'bot',
-                    }">
+                      'flex justify-end': message.from === 'user',
+                      'flex justify-start': message.from === 'bot',
+                  }">
             <div :class="{
                             'bg-blue-500 text-white rounded-lg px-3 py-2 max-w-[70%]':
                                 message.from === 'user',
@@ -198,12 +193,19 @@
                         }" x-text="message.text"></div>
           </div>
         </template>
+
+        <div x-show="isLoading" class="flex justify-center my-2">
+          <div class="typing-indicator text-gray-500 dark:text-gray-400">
+            AI is thinking...
+          </div>
+        </div>
       </div>
 
       <form @submit.prevent="sendMessage" class="border-t border-gray-200 dark:border-gray-600 flex">
         <input type="text" x-model="userInput" placeholder="Ask something..."
-          class="w-full px-3 py-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-100" />
-        <button type="submit" class="px-4 text-blue-500 font-semibold">
+          class="w-full px-3 py-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-100"
+          :disabled="isLoading" />
+        <button type="submit" class="px-4 text-blue-500 font-semibold" :disabled="isLoading">
           &rarr;
         </button>
       </form>
