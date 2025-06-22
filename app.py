@@ -6,6 +6,28 @@ import os
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev")  
 
+# This function reads SVG files from the static directory and returns their content.
+def load_svg(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+    
+# Assuming SVGs are in a 'static/svgs' directory
+stack = [
+    {"name": "HTML5", "svg": load_svg("static/svgs/html5.svg")},
+    {"name": "CSS3", "svg": load_svg("static/svgs/css3.svg")},
+    {"name": "JavaScript", "svg": load_svg("static/svgs/javascript.svg")},
+    {"name": "React", "svg": load_svg("static/svgs/react.svg"), "spin": False}, 
+    {"name": "Python", "svg": load_svg("static/svgs/python.svg")},
+    {"name": "Flask", "svg": load_svg("static/svgs/flask.svg")},
+    {"name": "SQLite", "svg": load_svg("static/svgs/sqlite.svg")},
+    {"name": "Git", "svg": load_svg("static/svgs/git.svg")},
+    {"name": "Tailwind CSS", "svg": load_svg("static/svgs/tailwindcss.svg")},
+    {"name": "Jinja2", "svg": load_svg("static/svgs/jinja2.svg")},
+    {"name": "VS Code", "svg": load_svg("static/svgs/vscode.svg")},
+    {"name": "Terminal / CLI", "svg": load_svg("static/svgs/terminal.svg")}
+]
+
+
 @app.route("/ask_ai", methods=["POST"])
 def ask_ai():
     user_query = request.json.get("query")
@@ -71,7 +93,7 @@ def ask_ai():
 # Basic Routes
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", stack=stack)
 
 @app.route("/projects")
 def projects():
