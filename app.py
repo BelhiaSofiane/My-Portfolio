@@ -4,7 +4,7 @@ import sqlite3
 import os
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "dev")  # use a real secret in prod
+app.secret_key = os.getenv("SECRET_KEY", "dev")  
 
 @app.route("/ask_ai", methods=["POST"])
 def ask_ai():
@@ -28,7 +28,7 @@ def ask_ai():
     ]
 
     # --- Read the API key from environment variables ---
-    OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY") # <--- MODIFIED LINE
+    OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY") 
 
     if not OPENROUTER_API_KEY:
         app.logger.error("OPENROUTER_API_KEY is not set in environment variables.")
@@ -81,13 +81,10 @@ def projects():
 def contact():
     return render_template("contact.html")
 
-@app.route("/blog")
+@app.route("/about")
 def blog():
-    return render_template("blog.html")
+    return render_template("about.html")
 
-@app.route("/blog/<slug>")
-def post(slug):
-    return render_template("post.html", slug=slug)
 
 
 if __name__ == "__main__":
