@@ -1,19 +1,19 @@
 # Gitignore for Flask project with Node.js assets
 
 # Node.js
-/node_modules/ # Exclude all downloaded Node.js packages. These can be re-installed using npm/yarn.
+/node_modules/ 
 
 # Python
-__pycache__/ # Exclude Python bytecode cache files.
-*.pyc # Exclude compiled Python files.
-.pytest_cache/ # Exclude pytest cache directory if you are using pytest for testing.
-venv/ # Exclude the Python virtual environment directory. This should be recreated via requirements.txt.
-/instance/ # Exclude Flask's instance folder, often used for SQLite databases or sensitive config.
+__pycache__/ 
+*.pyc 
+.pytest_cache/ 
+venv/ 
+/instance/ 
 
 # Environment variables
-.env # Crucial: Exclude local environment variables file (e.g., API keys, database credentials).
-.flaskenv # Exclude Flask-specific environment variables for development.
+.env
+.flaskenv
 
 # Editor and OS files
-.vscode/ # Exclude VS Code workspace settings and configurations (user-specific).
-.DS_Store # Exclude macOS-specific directory files.
+.vscode/ 
+.DS_Store 
