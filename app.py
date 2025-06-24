@@ -35,17 +35,26 @@ def ask_ai():
         return jsonify({"error": "No query provided"}), 400
 
     sofiane_context = """
-    Sofiane Belhia is a web developer from Algeria.
-    Education: Completed Harvard's CS50x and Scrimba Frontend Career Path.
-    Skills: HTML, CSS (Tailwind CSS), JavaScript (React), Python (Flask), SQLite.
-    Projects: Creator of this Personal Finance Monitoring application (CS50x Final Project), has a portfolio with other frontend apps.
-    Work Style: Passionate, self-driven, focuses on clean code, modern UI/UX, user-centered design. Eager to learn new technologies.
-    Goals: Actively seeking remote opportunities to contribute to real-world projects and collaborate.
-    Contact: belhiasofiane150@gmail.com.
+    Sofiane Belhia
+    Age: 24
+    Location: Algeria (Open to remote work)
+    Email: belhiasofiane150@gmail.com
+    GitHub: github.com/BelhiaSofianeCS50
+    LinkedIn: linkedin.com/in/sofiane-belhia-1696b5285
+    Portfolio: You are talking to ai from sofiane's portfolio.
+    About Me:
+    I'm a self-taught web developer with a strong foundation in frontend (HTML, CSS/Tailwind, JavaScript, React) and backend (Python, Flask, SQLite). I completed Harvard's CS50x and the Scrimba Frontend Career Path, and have built several responsive web applications focused on clean code, smooth UX, and modern design.
+    Key Projects:
+    Quizzical :
+    tenzies : A fun, interactive game where you roll dice to get all the same number. Built with React.
+    Portfolio Website: A professional developer portfolio with theme toggle, and responsive design, everything you need to know about
+    Other Frontend Projects: Include interactive components and responsive layouts built with React and Tailwind CSS.
+    Work Ethic:
+    Driven, detail-oriented, and constantly learning. I love building useful tools and working on meaningful problems. Currently looking for remote opportunities to grow, contribute, and collaborate in real-world environments.
     """
 
     messages = [
-        {"role": "system", "content": "You are a helpful assistant providing information about Sofiane Belhia, based on the provided context."},
+        {"role": "system", "content": "You are a helpful assistant providing information about Sofiane Belhia, based on the provided context. Do not deviate from this context. and do not answer any questions that are not related to Sofiane."},
         {"role": "user", "content": f"Here is context about Sofiane: {sofiane_context}\n\nUser's question: {user_query}"}
     ]
 
