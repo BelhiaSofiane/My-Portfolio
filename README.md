@@ -6,13 +6,10 @@ This is my personal developer portfolio website built with **Flask**, **SQLite**
 
 - Responsive design (mobile-friendly)
 - Light/Dark mode toggle 🌗
-- Dynamic blog section with Markdown support
 - Skills section with SVG icons
 - Contact form (email setup required)
-- Admin login for content management
 - Smooth animations and transitions
 - SEO-ready structure
-- SQLite database for storing blog posts and admin users
 
 ## 🛠️ Built With
 
@@ -27,10 +24,9 @@ This is my personal developer portfolio website built with **Flask**, **SQLite**
 
 - `/` – Home with intro, projects, skills
 - `/about` – A detailed “About Me” section
-- `/blog` – Blog posts dynamically rendered from the database
 - `/contact` – Contact form
-- `/admin` – Admin login (secured)
-- `/admin/dashboard` – Admin dashboard to create/edit/delete posts
+- `/projects` - Contains Projects i worked on
+
 
 ## 📸 Preview
 
@@ -54,7 +50,7 @@ my-portfolio/
 
 Create a `.env` file in the root:
 
-SECRET_KEY=your-secret-key
+OPENROUTER_API_KEY=your-open-router-api-key
 
 
 > Make sure `.env` is added to `.gitignore`!
