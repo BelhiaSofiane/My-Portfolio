@@ -1,19 +1,15 @@
-# Gitignore for Flask project with Node.js assets
+.env
+.flaskenv
 
-# Node.js
 /node_modules/ 
 
-# Python
 __pycache__/ 
 *.pyc 
 .pytest_cache/ 
 venv/ 
 /instance/ 
 
-# Environment variables
-.env
-.flaskenv
 
-# Editor and OS files
+
 .vscode/ 
 .DS_Store 
