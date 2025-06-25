@@ -92,18 +92,15 @@
 
   <!-- Navbar -->
   <nav x-data="{ open: false }" aria-label="Main navigation"
-    class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+    class="sticky left-0 top-0 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2 text-lg font-bold">
           <span id="terminal-icon">
-            <!-- your logo SVG goes here -->
           </span>
-
           <span class="hidden md:inline">B.Sofiane</span>
         </a>
-
         <!-- Desktop Links -->
         <div class="hidden md:flex items-center gap-6 text-sm font-medium">
           <a href="/" class="hover:text-blue-500">Home</a>
@@ -140,10 +137,15 @@
 
       <!-- Mobile Dropdown Menu -->
       <div x-show="open" x-transition class="md:hidden mt-2 space-y-2 text-sm font-medium">
+        <hr>
         <a href="/" class="block px-4 py-2 hover:text-blue-500">Home</a>
+        <hr>
         <a href="/projects" class="block px-4 py-2 hover:text-blue-500">Projects</a>
+        <hr>
         <a href="/contact" class="block px-4 py-2 hover:text-blue-500">Contact</a>
+        <hr>
         <a href="/about" class="block px-4 py-2 hover:text-blue-500">About Me</a>
+        <hr>
       </div>
     </div>
   </nav>
@@ -167,7 +169,7 @@
       x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
       x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
       x-transition:leave-end="opacity-0 scale-90" @click.away="open = false"
-      class="border border-zinc-600 bg-white dark:bg-gray-700 rounded-lg shadow-lg w-80 h-96 flex flex-col fixed bottom-20 right-4">
+      class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-80 h-96 flex flex-col fixed bottom-20 right-4">
 
       <div class="p-3 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
         <h3 class="font-semibold text-lg text-gray-800 dark:text-gray-100">Sofiane Chatbot</h3>
@@ -214,7 +216,7 @@
 
   <!-- Footer -->
   <footer
-    class="h-16 pt-10 pb-10 sticky bottom-0 text-sm text-gray-500 dark:text-gray-400 text-center mt-8 mb-4 flex flex-col md:flex-row justify-between px-6">
+    class="h-16 pt-10 pb-10 bottom-0 text-sm text-gray-500 dark:text-gray-400 text-center mt-8 mb-4 flex flex-col md:flex-row justify-between px-6">
     <span>© 2025 Belhia Sofiane Portfolio</span>
     <div class="space-x-4">
       <a href="#" class="hover:underline">Privacy Policy</a>

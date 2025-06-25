@@ -4,6 +4,7 @@
 {% block content %}
 
 <section class="flex flex-col items-center justify-center text-center px-4">
+  
   <h1 class="text-3xl md:text-4xl font-bold mb-4">Welcome to My Portfolio</h1>
   <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-xl">
     Hi, I’m Sofiane, a passionate Self Taught developer eager to create innovative solutions and grow in the tech world.
@@ -17,37 +18,23 @@
         <span id="computer-icon">
 
         </span>
-        <span>Proficient in JavaScript, HTML, and CSS.</span>
+        <span>Skilled in JavaScript, HTML5, and CSS3.</span>
       </li>
       <li class="flex items-center gap-3">
         <span id="database-icon">
 
         </span>
-        <span>Experience with SQL and NoSQL databases.</span>
+        <span>Passionate about modern UI/UX design.</span>
       </li>
       <li class="flex items-center gap-3">
         <span id="responsive-icon">
 
         </span>
-        <span>Enthusiastic about responsive design.</span>
+        <span>Focused on building fully responsive interfaces.
+
+        </span>
       </li>
     </ul>
-  </div>
-  <div class="px-4 py-16 max-w-5xl mx-auto text-center">
-    <h2 class="text-2xl font-bold mb-8 text-text dark:text-text">My Stack</h2>
-
-    <div
-      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-sm text-text-secondary dark:text-text-secondary">
-      {% for tech in stack %}
-      <div class="h-24 w-24 flex flex-col items-center transition-transform duration-300 hover:scale-110">
-        {# Add a div to control the spin animation and ensure consistent icon sizing #}
-        <div class="tech-icon {{ 'animate-spin' if tech.spin else '' }}">
-          {{ tech.svg | safe }}
-        </div>
-        <span class="hover:text-accent transition mt-2">{{ tech.name }}</span>
-      </div>
-      {% endfor %}
-    </div>
   </div>
 
 </section>

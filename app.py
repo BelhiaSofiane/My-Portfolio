@@ -4,6 +4,7 @@ import sqlite3
 import os
 
 app = Flask(__name__)
+
 app.secret_key = os.getenv("SECRET_KEY", "dev")  
 
 # This function reads SVG files from the static directory and returns their content.
@@ -114,7 +115,7 @@ def contact():
 
 @app.route("/about")
 def blog():
-    return render_template("about.html")
+    return render_template("about.html", stack=stack)
 
 
 

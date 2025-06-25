@@ -15,23 +15,22 @@ block content %}
       not coding, I’m probably tweaking my portfolio or learning new frameworks.
     </p>
   </div>
- 
-  <div
-    class="mt-8 text-left space-y-3 text-sm text-text-secondary dark:text-text-secondary"
-  >
-    <p>
-      <span class="font-semibold text-text dark:text-text">2023:</span> Started
-      my coding journey — learned HTML, CSS, and JavaScript.
-    </p>
-    <p>
-      <span class="font-semibold text-text dark:text-text">2024:</span>
-      Completed CS50x and Scrimba’s Frontend Career Path.
-    </p>
-    <p>
-      <span class="font-semibold text-text dark:text-text">2025:</span> Building
-      real-world projects with Flask, React, and Tailwind. Looking for my first
-      developer role.
-    </p>
+
+  <div class="px-4 py-16 max-w-5xl mx-auto text-center">
+    <h2 class="text-2xl font-bold mb-8 text-text dark:text-text">My Stack</h2>
+
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-sm text-text-secondary dark:text-text-secondary">
+      {% for tech in stack %}
+      <div class="h-24 w-24 flex flex-col items-center transition-transform duration-300 hover:scale-110">
+        {# Add a div to control the spin animation and ensure consistent icon sizing #}
+        <div class="tech-icon {{ 'animate-spin' if tech.spin else '' }}">
+          {{ tech.svg | safe }}
+        </div>
+        <span class="hover:text-accent transition mt-2">{{ tech.name }}</span>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </section>
 {% endblock %}
