@@ -14,7 +14,6 @@ This is my personal developer portfolio website built with **Flask** and modern 
 ## 🛠️ Built With
 
 - **Python & Flask** – Web framework
-- **SQLite** – Lightweight database
 - **Jinja2** – Templating engine
 - **Tailwind CSS** – Utility-first styling
 - **JavaScript** – Interactivity and theme logic
