@@ -5,7 +5,6 @@ import os
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv("SECRET_KEY", "dev")  
 
 # This function reads SVG files from the static directory and returns their content.
 def load_svg(path):
@@ -37,7 +36,7 @@ def ask_ai():
 
     sofiane_context = """
     Sofiane Belhia
-    Age: 24
+    Age: 25
     Location: Algeria (Open to remote work)
     Email: belhiasofiane150@gmail.com
     GitHub: github.com/BelhiaSofianeCS50
@@ -46,8 +45,13 @@ def ask_ai():
     About Me:
     I'm a self-taught web developer with a strong foundation in frontend (HTML, CSS/Tailwind, JavaScript, React) and backend (Python, Flask, SQLite). I completed Harvard's CS50x and the Scrimba Frontend Career Path, and have built several responsive web applications focused on clean code, smooth UX, and modern design.
     Key Projects:
-    Quizzical :
+    Quizzical :  Quizzical is a trivia quiz app built with React. It fetches
+        multiple-choice questions from the Open Trivia Database API and
+        challenges users to test their knowledge in a fun and interactive way.
+        Features include randomized answers, score tracking, and dynamic
+        question loading — all wrapped in a responsive and minimalist design.
     tenzies : A fun, interactive game where you roll dice to get all the same number. Built with React.
+    Budgeting-app: Budgeting App is a single-page application built with React and Vite that allows users to track their income and expenses. It features dynamic routing using React Router, and a simple UI for adding, viewing, and managing transactions. The app maintains state using React hooks and is designed for local use.
     Portfolio Website: A professional developer portfolio with theme toggle, and responsive design, everything you need to know about
     Other Frontend Projects: Include interactive components and responsive layouts built with React and Tailwind CSS.
     Work Ethic:
@@ -55,7 +59,7 @@ def ask_ai():
     """
 
     messages = [
-        {"role": "system", "content": "You are a helpful assistant providing information about Sofiane Belhia, based on the provided context. Do not deviate from this context. and do not answer any questions that are not related to Sofiane."},
+        {"role": "system", "content": "You are a helpful assistant providing information about Sofiane Belhia, based on the provided context. Do not deviate from this context. and do not answer any questions that are not related to Sofiane, if user doesnt ask anything about sofiane tell him that u are an assistant and please ask about sofiane"},
         {"role": "user", "content": f"Here is context about Sofiane: {sofiane_context}\n\nUser's question: {user_query}"}
     ]
 

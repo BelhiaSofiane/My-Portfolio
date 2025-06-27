@@ -154,64 +154,122 @@
   <main class="flex items-center justify-center flex-grow m-0 p-6">
     {% block content %}{% endblock %}
   </main>
-  <div x-data="chat" x-cloak class="fixed bottom-4 right-4 z-50">
-
+  <!-- Enhanced Chat Widget -->
+  <div x-data="chat" class="fixed bottom-16 right-6 z-50">
+    <!-- Chat Toggle Button -->
     <button @click="open = !open"
-      class="mb-12 bg-gray-500 text-white p-3 dark:bg-white dark:text-gray-500 rounded-full shadow-lg">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      class="mb-4 w-14 h-14 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+      :class="{ 'animate-pulse-slow': !open && messages.length === 1 }" title="Open chat (Ctrl+K)">
+      <svg x-show="!open" class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none"
+        stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 4v-4z">
-        </path>
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+      <svg x-show="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
       </svg>
     </button>
 
-    <div x-show="open" x-transition:enter="transition ease-out duration-300 "
-      x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-      x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-      x-transition:leave-end="opacity-0 scale-90" @click.away="open = false"
-      class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-80 h-96 flex flex-col fixed bottom-20 right-4">
+    <!-- Chat Window -->
+    <div x-show="open" x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-90 translate-y-4"
+      x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+      x-transition:leave-end="opacity-0 scale-90 translate-y-4" @click.away="open = false"
+      class="glass rounded-2xl shadow-2xl w-96 h-[32rem] flex flex-col backdrop-blur-xl border border-white/20 dark:border-gray-700/50">
 
-      <div class="p-3 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
-        <h3 class="font-semibold text-lg text-gray-800 dark:text-gray-100">Sofiane Chatbot</h3>
-        <button @click="open = false"
-          class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+      <!-- Chat Header -->
+      <div class="mb-4 p-4 border-b border-white/20 dark:border-gray-700/50 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">AI Assistant</h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400">Online</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button @click="clearChat()" class="p-1.5 text-gray-500 hover:text-red-500 transition-colors duration-200"
+            title="Clear chat">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+          <button @click="open = false"
+            class="p-1.5 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <div id="chat-box" class="flex-1 overflow-y-auto p-3 space-y-2 text-gray-800 dark:text-gray-100">
+      <!-- Chat Messages -->
+      <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
         <template x-for="(message, index) in messages" :key="index">
-          <div :class="{
-                      'flex justify-end': message.from === 'user',
-                      'flex justify-start': message.from === 'bot',
-                  }">
-            <div :class="{
-                            'bg-blue-500 text-white rounded-lg px-3 py-2 max-w-[70%]':
-                                message.from === 'user',
-                            'bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-lg px-3 py-2 max-w-[70%]':
-                                message.from === 'bot',
-                        }" x-text="message.text"></div>
+          <div class="animate-fade-in" :class="{
+                 'flex justify-end': message.from === 'user',
+                 'flex justify-start': message.from === 'bot'
+               }">
+            <div class="max-w-[85%] group">
+              <div :class="{
+                     'bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl rounded-br-md px-4 py-2.5 shadow-md':
+                       message.from === 'user',
+                     'bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-md px-4 py-2.5 shadow-md border border-white/30 dark:border-gray-700/50':
+                       message.from === 'bot'
+                   }" :class="{ 'border-red-300 dark:border-red-700': message.isError }" x-text="message.text">
+              </div>
+              <div x-show="message.timestamp"
+                class="text-xs text-gray-500 dark:text-gray-400 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                :class="{ 'text-right': message.from === 'user' }"
+                x-text="message.timestamp ? formatTime(message.timestamp) : ''">
+              </div>
+            </div>
           </div>
         </template>
 
-        <div x-show="isLoading" class="flex justify-center my-2">
-          <div class="typing-indicator text-gray-500 dark:text-gray-400">
-            AI is thinking...
+        <!-- Loading Indicator -->
+        <div x-show="isLoading" class="flex justify-start animate-fade-in">
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 rounded-2xl rounded-bl-md px-4 py-2.5 shadow-md border border-white/30 dark:border-gray-700/50">
+            <div class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <div class="flex gap-1">
+                <div class="w-2 h-2 bg-current rounded-full animate-bounce"></div>
+                <div class="w-2 h-2 bg-current rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-2 h-2 bg-current rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+              </div>
+              <span class="text-sm">AI is typing</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <form @submit.prevent="sendMessage" class="border-t border-gray-200 dark:border-gray-600 flex">
-        <input type="text" x-model="userInput" placeholder="Ask something..."
-          class="w-full px-3 py-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-100"
-          :disabled="isLoading" />
-        <button type="submit" class="px-4 text-blue-500 font-semibold" :disabled="isLoading">
-          &rarr;
-        </button>
+      <!-- Chat Input -->
+      <form @submit.prevent="sendMessage" class="p-4 border-t border-white/20 dark:border-gray-700/50">
+        <div class="flex gap-2">
+          <input type="text" x-model="userInput" placeholder="Ask me anything..."
+            class="flex-1 px-4 py-2.5 bg-white/50 dark:bg-gray-800/50 border border-white/30 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200"
+            :disabled="isLoading" maxlength="500" />
+          <button type="submit"
+            class="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center min-w-[3rem] focus-ring"
+            :disabled="isLoading || !userInput.trim()">
+            <svg x-show="!isLoading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            <div x-show="isLoading" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin">
+            </div>
+          </button>
+        </div>
+        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+          Press Ctrl+K to quickly open chat
+        </div>
       </form>
     </div>
+  </div>
   </div>
 
   <!-- Footer -->
