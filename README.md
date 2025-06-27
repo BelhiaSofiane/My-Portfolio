@@ -35,14 +35,23 @@ Coming soon to [your deployed link here].
 ## 📂 Folder Structure
 
 my-portfolio/ 
+
 ├── static/ # CSS, JS, images, SVGs 
+
 ├── templates/ # Jinja2 templates 
+
 │ ├── base.html # Base layout 
+
 │ └── *.html # Page templates 
+
 ├── app.py # Flask application 
+
 ├── models.py # Database models (if separated) 
+
 ├── README.md # Project documentation 
+
 ├── requirements.txt # Python dependencies 
+
 └── .env # Environment variables (secret key, etc.) 
  
 
