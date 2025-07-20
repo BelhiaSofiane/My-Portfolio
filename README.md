@@ -1,5 +1,6 @@
 # 💼 My Developer Portfolio
 
+
 This is my personal developer portfolio website built with **Flask** and modern **HTML/CSS/JS** technologies. It showcases my projects, skills, blog posts, and contact information. It also includes a light/dark mode toggle, animated UI, and an admin dashboard for managing content.
 
 ## 🚀 Features
