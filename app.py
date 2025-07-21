@@ -11,7 +11,6 @@ def load_svg(path):
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
     
-# Assuming SVGs are in a 'static/svgs' directory
 stack = [
     {"name": "HTML5", "svg": load_svg("static/svgs/html5.svg")},
     {"name": "CSS3", "svg": load_svg("static/svgs/css3.svg")},
