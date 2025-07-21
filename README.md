@@ -72,7 +72,6 @@ OPENROUTER_API_KEY=your-open-router-api-key
 git clone https://github.com/BelhiaSofianeCS50/My-Portfolio.git
 cd My-Portfolio
 
-
 🧑‍💻 Author
 Sofiane Belhia
 📍 Algeria (Open to remote opportunities)
